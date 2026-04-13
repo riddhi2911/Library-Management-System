@@ -1,0 +1,21 @@
+CREATE TABLE Categories (CategoryId int PRIMARY KEY AUTO_INCREMENT NOT NULL, CategoryName varchar(50) DEFAULT NULL);
+
+
+
+CREATE TABLE Book (BookId int PRIMARY KEY AUTO_INCREMENT NOT NULL, Title varchar(50) DEFAULT NULL, Author varchar(50) DEFAULT NULL, CategoryId int DEFAULT NULL, Publisher varchar(50) DEFAULT NULL, Year int DEFAULT NULL, Quantity int DEFAULT NULL,`BookLink` varchar(500) NOT NULL, FOREIGN KEY(CategoryId) REFERENCES Categories(CategoryId));
+
+CREATE TABLE Admin( AdminId int PRIMARY KEY AUTO_INCREMENT NOT NULL, Username varchar(50) DEFAULT NULL, PASSWORD varchar(50) DEFAULT NULL);
+
+CREATE TABLE Users(UserId int PRIMARY KEY AUTO_INCREMENT NOT NULL, Name varchar(50) DEFAULT NULL, Email varchar(50) DEFAULT NULL, Password varchar(50) DEFAULT NULL, PhoneNo varchar(50) DEFAULT NULL, Address varchar(50) DEFAULT NULL, City varchar(50) DEFAULT NULL, DOB date DEFAULT NULL, profile_image varchar(255) DEFAULT NULL);
+
+
+
+CREATE TABLE IssueBook(IssueId int PRIMARY KEY AUTO_INCREMENT NOT NULL, BookId int DEFAULT NULL, UserId int DEFAULT NULL, IssueDate date DEFAULT NULL, ReturnDate date DEFAULT NULL, Status varchar(50) DEFAULT NULL, FOREIGN KEY(BookId) REFERENCES Book(BookId), FOREIGN KEY(UserId) REFERENCES Users(UserId));
+
+
+CREATE TABLE ReturnBook(ReturnId int PRIMARY KEY AUTO_INCREMENT NOT NULL, IssueId int DEFAULT NULL, ReturnDate date DEFAULT NULL, FineAmount int DEFAULT NULL, FOREIGN KEY(IssueId) REFERENCES IssueBook(IssueId));
+
+
+
+CREATE TABLE Fine(FineId int PRIMARY KEY AUTO_INCREMENT NOT NULL, UserId int DEFAULT NULL, IssueId int DEFAULT NULL, FineAmount int DEFAULT NULL, Status varchar(50) DEFAULT NULL, FOREIGN KEY(UserId) REFERENCES Users(UserId), FOREIGN KEY(IssueId) REFERENCES IssueBook(IssueId));
+
