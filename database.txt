@@ -1,0 +1,59 @@
+DBName : librarymanagement
+
+CREATE TABLE Categories (CategoryId int PRIMARY KEY AUTO_INCREMENT, CategoryName varchar(50))
+
+
+CREATE TABLE Book (BookId int PRIMARY KEY AUTO_INCREMENT, Title varchar(50), Author varchar(50), Description varchar(500),CategoryId int, Publisher varchar(50),Rate float, Year int, Quantity int, BookLink varchar(200) FOREIGN KEY(CategoryId) REFERENCES Categories(CategoryId));
+
+
+CREATE TABLE Users(UserId int PRIMARY KEY AUTO_INCREMENT, Name varchar(50), Email varchar(50), Password varchar(50), PhoneNo varchar(50), Address varchar(50), City varchar(50), DOB date, profile_image varchar(255))
+
+CREATE TABLE RequestedBook (
+    RequestId INT AUTO_INCREMENT PRIMARY KEY,
+    UserId INT,
+    BookId INT,
+    RequestDate DATE,
+    Status VARCHAR(20) DEFAULT 'Pending',
+
+    FOREIGN KEY (UserId) REFERENCES Users(UserId),
+    FOREIGN KEY (BookId) REFERENCES Book(BookId)
+);
+-> other values of status is (pending, approved,rejected)
+
+
+CREATE TABLE IssueBook (
+    IssueId INT AUTO_INCREMENT PRIMARY KEY,
+    UserId INT,
+    BookId INT,
+    IssueDate DATE,
+    DueDate DATE,
+    Status VARCHAR(20) DEFAULT 'Issued',
+
+    FOREIGN KEY (UserId) REFERENCES Users(UserId),
+    FOREIGN KEY (BookId) REFERENCES Book(BookId)
+);
+-> status values (Pending , Issued, Returned , Rejected)
+
+
+
+CREATE TABLE ReturnBook (
+    ReturnId INT AUTO_INCREMENT PRIMARY KEY,
+    IssueId INT,
+    ReturnDate DATE,
+    Status VARCHAR(20) DEFAULT 'Returned',
+
+    FOREIGN KEY (IssueId) REFERENCES IssueBook(IssueId)
+);
+->Status values (Returned , Late)
+
+
+CREATE TABLE Fine (
+    FineId INT AUTO_INCREMENT PRIMARY KEY,
+    IssueId INT,
+    DaysLate INT,
+    FineAmount DECIMAL(10,2),
+    Status VARCHAR(20) DEFAULT 'Unpaid',
+
+    FOREIGN KEY (IssueId) REFERENCES IssueBook(IssueId)
+);
+-> status value : paid ,unpaid
