@@ -30,5 +30,9 @@ Developed a Library Management System to manage books and user activities effici
 4. Import database in phpMyAdmin  
 5. Open browser and run: Homepage.php
 
+
  ## 👨‍💻 Author
 **Riddhi Patel**
+
+## 📎 GitHub Repository
+(https://github.com/riddhi2911/Library-Management-System)
